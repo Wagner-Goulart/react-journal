@@ -116,6 +116,60 @@ function App() {
 
 export default App
 ```
+## Dia 2 ⇒ Estado e Ciclo de vida dos componentes
 
+Assim que nós, os componentes também tem seus ciclos de vidas. Componente nascem, recebem suas `props` e `states,` e depois morrem ( saem da tela ).
+
+Essas mudanças eram gerenciadas por funções especificas como `**componentDidMount, shouldComponentUpdate, componentDidUpdate, componentWillUnmount`** 
+
+Através delas os componentes de classe tinham acesso ao estado e suas atualizações, com a chegada dos `hooks` o mercadoria acabou direcionando o desenvolvimento para os componentes de função, mas esses ciclos ainda hoje estão presente, mesmo que por debaixo dos panos nos `hooks`
+
+Os componentes do `REACT` possuem um estado `( state )`  esse estado é a memória do componente.
+
+Componentes reagem as mudanças em seus estados de forma automaticamente, fazendo com que eles se atualizem exibindo novas informações na tela de acordo com a interação do usuário com a aplicação.
+
+Os estados são locais aos seus componentes, isso significa que , mesmo que invoquemos o mesmo componente duas vezes na nossa aplicação, cada componente “lembrará” somente do seus estados, e as interações do usuário com esses componentes somente ele será redenrizado e terá seu estados atualizado.
+
+O `useState` é uma das formas utilizadas para manipular esse estados, ele não funciona em componentes de classe apenas em componente funcionais.
+
+Nele sempre teremos um `array` de 2 elementos, um será nossa variável que irá armazenar o estados atual do componente, e o outro elemento a função responsável por alterar esses estados.
+
+- `Hooks` devem ser obrigatoriamente chamados no topo do componente;
+- Não podem ser chamados, dentro de condições, `loops` e funções aninhadas;
+- Convenção de nomes para a variável e função ⇒ `[state, setState] = useState()`
+
+```jsx
+// Primeiro importamos o useState do react
+import { useState } from "react";
+
+function State() {
+//Difinimos as variaveis de estados
+// Convenção de nomes é, [ state, setState ]
+
+  const [name, setName] = useState("Wagner"); // Aqui temos um estado para o nome
+  const [number, setNumber] = useState(1); // aqui um estados para numeros
+
+  const changeNumber = ()=>{
+		// Nessa função definimos que forma que os números serão alterados
+    setNumber((prevNumber)=> prevNumber + 1)
+  }
+
+  return (
+    <>
+      <h1> Meu nome é : {name}</h1>
+// Dentro do onChange, alteramos o valor conforme o input é digitado
+      <input type="text" value={name} onChange={e =>setName(e.target.value) } />
+      <div>
+            <p>{number}</p>
+            <button onClick={changeNumber}>Mudar numero</button>
+      </div>
+    </>
+  );
+}
+
+export { State };
+```
+
+a
 
 
