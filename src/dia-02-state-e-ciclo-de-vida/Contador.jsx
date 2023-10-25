@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './dia-02-state-e-ciclo-de-vida/Contador.styles.css'
+import './Contador.styles.css'
 
 function Contador() {
   const [number, setNumber] = useState(0);
