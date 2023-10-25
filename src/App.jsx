@@ -1,11 +1,11 @@
-import { HelloWorld } from "./dia-01-components-e-jsx/HelloWorld"
+import { Contador } from "./dia-02-state-e-ciclo-de-vida/Contador"
 
 function App() {
 
 
   return (
     <>
-      <HelloWorld />
+     <Contador/>
     </>
   )
 }

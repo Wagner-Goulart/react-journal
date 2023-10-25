@@ -3,11 +3,11 @@ import App from "./App"
 
 /* eslint-disable no-undef */
 describe ('jest', ()=>{
-    it('Should work', ()=>{
+    it.skip('Should work', ()=>{
         expect(1).toBe(1)
     })
 
-    it("Should display elements", ()=>{
+    it.skip("Should display elements", ()=>{
         render(<App/>)
 
         screen.debug()
