@@ -1,9 +1,5 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import './dia-02-state-e-ciclo-de-vida/Contador.styles.css'
-=======
-import '../dia-02-state-e-ciclo-de-vida/Contador.styles.css'
->>>>>>> 9192b054464e67e23332cf5e739784bf2247e63c
 
 function Contador() {
   const [number, setNumber] = useState(0);
