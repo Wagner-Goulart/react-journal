@@ -170,6 +170,120 @@ function State() {
 export { State };
 ```
 
+## Dia 3 ⇒ `React-router` e Navegação
+
+A navegação em aplicações `SPA` é realizada através de rotas, cada rota nos leva a uma nova página ou componente com informações especificas.
+
+Em aplicações `react` esses “caminhos “ são criados através de uma biblioteca que precisa ser instalada na projeto, a mais comum de ser utilizada é a `react-router-dom` .
+
+### Configurando as rotas:
+
+Na versão mais atual do `react-router-dom`, as rotas são criados dentro do arquivo `main.jsx` 
+
+```jsx
+// Configurando o router na versão mais atual
+// Importa o createBrowserRouter e o RouterProvider do React router
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+// Cria uma custante e chama a função createBrowserRouter;
+// Função recebe um array como argumento, dentro o array são passados os objetos
+// Esses objetos são as rotas e os elementos que devem ser renderizados
+const router = createBrowserRouter([
+  {
+    path : "/", //caminho 
+    element: <Home /> // esse será o componente que será renderizado por padrão
+  },
+  {
+    path : "contact", // caminho
+    element: <Contact /> // elemento
+  }
+])
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+		// No lugar do app é coloca o compomente RouterProvider
+		// Na prop router passamos a const router com os caminhão criados acima
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+)
+```
+
+Dentro das funcionalidade do `react-route` temos a componente `Outlet` esse componente indica um componente que sempre será renderizado independente da rota que seja acessada, como um menu de navegação que sempre está disponível independente da rota.
+
+```jsx
+// Importo o componente Outlet
+import { Outlet } from "react-router-dom";
+
+function App() {
+  return (
+    <>
+      <div>
+        <h1>React Router</h1>
+        <Outlet /> // usamos ele para indicar que esse elemento sempre estará na tela
+      </div>
+    </>
+  );
+}
+
+export default App;
+```
+
+Nos casos onde é feito o uso do `Outlet` é necessário realizar um ajuste nas rotas, informando uma nova propriedade que é a `Children`
+
+```jsx
+const router = createBrowserRouter([
+  {
+	// Rota padrão que contém o Outlet
+    path: "/",
+    element: <App />,
+    children: [ // demais rotas vão dentro da propriedade Children
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
+Também é possível criar uma pagina de erro é utiliza-lá como uma rota caso algo inesperado aconteça na aplicação, bastando para isso incluir a propriedade `errorElement` dentro do objeto principal das rotas
+
+```jsx
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage  />, // Direcionada para o componente de erro,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
 a
 
 
