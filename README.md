@@ -283,7 +283,66 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
+## Dia 4 ⇒ Renderização condicional
 
-a
+Renderização condicional permite o controlar a forma que os elementos são renderizados na tela. Essa forma é controlada através dos operadores de controle de fluxo e lógicos do `javaScript` 
+
+É possível controlar a renderização com um `if` normal, com o operador ternário e até mesmo com o operador lógico `E( &&)` 
+
+### Exemplo com `IF` normal:
+
+```jsx
+function Item({ name, isPacked }) {
+   if (isPacked) {
+    return <li className="item">{name} ✔</li>;
+   }
+   return <li className="item">{name}</li>;
+ }
+```
+
+Nesse exemplo será renderizado um lista de itens, a componente recebe uma `props` que indica se o item está embalado ou não, se o item estiver embalado, queremos renderizar o `checkmark ✔` no item, caso não contrário será renderizado somente o nome o item.
+
+Esse técnica possui uma desvantagem, pois foge dos princípios do `DRY ( dont repeat Yourself)` pois o retorno é praticamente o mesmo, e em caso de manutenção no código teremos mais pontos de alteração.
+
+<aside>
+📌 Declarações `IF` não podem ser usadas dentro do retorno do `JSX` do componente
+
+</aside>
+<br>
+É possível utilizar o operador ternário para deixar o código mais limpo, e de fácil manutenção.
+
+### Exemplo com `operador ternário` :
+
+```jsx
+function Item({ name, isPacked }) {
+   return <li className="item">{isPacked ? {name + " ✔"} : name}</li>;
+  }
+```
+
+O mesma condição, só que agora de forma mais legível e com apenas um ponto de alteração no código.
+
+E por último temos a renderização com o operador lógico `E ( && )`
+
+### Exemplo com operador lógico `E (&&)` :
+
+```jsx
+function Item({ name, isPacked }) {
+  return <li className="item">{name} { isPacked && '✔'}</li>;
+}
+```
+
+Nesse caso, caso a condição a esquerda o operador for verdadeira, ele irá executar o comendo que está a esquerda. Caso o valor seja falso o `React` não fará nada.
+
+- Indicado para os caso, onde não iremos renderizar nada caso o resultado seja falso, evitando o uso do `null` desnecessariamente.
+
+Além das técnicas demonstradas acima, ainda existem outras técnicas como:
+
+- `Switch-case;`
+- `Enums;`
+- `HOC ( HGH ORDER COMPONENTS )`
+
+Essas técnicas também podem ser utilizadas em alguns casos, e também valem o estudo.
+
+
 
 
