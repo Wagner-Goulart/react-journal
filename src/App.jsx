@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { Button, ToolBar } from "./dia-05-manipulacao-eventos-e-estado/Button";
 
 function App() {
-  const [counter, setCounter] = useState(0)
-
-  const increment = ()=>{
-    setCounter((curr)=> curr + 1)
-  }
   return (
     <>
-      <h1> O contagem é: {counter}</h1>
-      <button onClick={increment}>+</button>
+      <ToolBar>
+        <Button message="Começando o filme">Comerçar Filme</Button>
+      </ToolBar>
+
+      <Button message="Tocando a música">Tocar Música</Button>
     </>
   );
 }

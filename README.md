@@ -343,6 +343,75 @@ Além das técnicas demonstradas acima, ainda existem outras técnicas como:
 
 Essas técnicas também podem ser utilizadas em alguns casos, e também valem o estudo.
 
+## Dia 5 ⇒ Manipulação de eventos e estado
 
+A manipulação de eventos no `REACT` é realizada através dos `event’s handler’s` .
 
+`Event Handlers`  são funções que são declarados dentro dos componentes e são passados como `props` para os elementos `HTML`
+
+```jsx
+ function Button(){
+// EVENT HANDLER, UMA FUNCÃO DECLARADA DENTRO DE UM COMPONENTE
+     function handleClick(){
+        console.log('Botão clicado')
+    }
+	// AO EVENTO DE ONCLICK É PASSADO O FUNÇÃO HANDLECLICK
+     return <button onClick={handleClick}>Click me</button>
+ }
+```
+
+É importante lembrando que eventos devem ser passados para os elementos `HTML` e não invocados.
+
+```java
+// CORRETO - SEM O PARENTESES APÓS O HANDLECLICK
+<button onClick={handleClick}>Click me</button>
+
+// INCORRETO - PARENTESES FARÁ COM A FUNÇÃO SEJA CHAMADA SEMPRE QUE O COMPONENTE
+// FOR REDERIZADO
+<button onClick={handleClick()}>Click me</button>
+```
+
+Por convenção as função manipuladoras de evento `(event handlers)` sempre começam com a palavra `handler` e o nome no evento que irão manipular.
+
+- `handleClick` → para manipular um evento de `click`;
+- `handlerMouseEnter` → para manipular um evento de `mouse`;
+- E assim por diante
+
+Os `handlers` também possuem acesso as `props` do componente, visto que são criados dentro dos componentes. Sendo possível manipular esse `props` durante a acionamento do evento.
+
+```jsx
+function ToolBar({ children, message }) {
+// ESSA DIV, AO SER CLICA IRÁ DISPARA UM ALERT COM O TEXTO QUE ESTÁ VINDO
+// ATRAVÉS DA PROP MESSAGE
+  return <div onClick={() => alert(message)}>{children}</div>;
+}
+```
+
+### Propagação do Evento:
+
+Algo que é importante lembrar que os eventos eles propagam, esse propagação começa componente que disparou o primeiro evento e sobe na árvore de componente disparando os demais eventos.
+
+No Exemplo abaixo temos uma uma `div` com um evento de `click` e dentro dessa `div` temos um botão também com evento de `click`.
+
+Nesse caso, se o botão for clicado, tanto o evento de `click` dele como o a `div` serão disparados. Para contornar esse tipos de situação utilizamos o `e.stopPropagation` para impedir esse comportamento
+
+```jsx
+function Button({ message, children }) {
+  return (
+    <button
+      onClick={(e) => {
+// IRA IMPEDIR QUE A PROPAGAÇÃO INICIE
+        e.stopPropagation();
+        alert(message);
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function ToolBar({ children }) {
+  return <div onClick={() => alert("Clicou na DIV")}>{children}</div>;
+}
+```
 
