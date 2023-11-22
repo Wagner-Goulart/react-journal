@@ -1,13 +1,11 @@
-import { Button, ToolBar } from "./dia-05-manipulacao-eventos-e-estado/Button";
+import { ListWithprops } from "./dia-06-listas-e-chaves/ListWithProps";
+
+const list = ["1", "2", "3"]
 
 function App() {
   return (
     <>
-      <ToolBar>
-        <Button message="Começando o filme">Comerçar Filme</Button>
-      </ToolBar>
-
-      <Button message="Tocando a música">Tocar Música</Button>
+      <ListWithprops list={list}/>
     </>
   );
 }

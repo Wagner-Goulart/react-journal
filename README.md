@@ -414,4 +414,87 @@ function ToolBar({ children }) {
   return <div onClick={() => alert("Clicou na DIV")}>{children}</div>;
 }
 ```
+## Dia 6 ⇒ Listas e Chaves
+
+Dados podem ser armazenados no `REACT` em `arrays` e objetos. Esses dados podem ser manipulados com os métodos do `JavaScript map() e filter()` desse forma podemos renderizar listas de dados, sem ficar cirando instâncias de elementos `HTML`  visto que muitas eles esses elementos são mos mesmo, o que muda é apenas os dados que estão dentro desses elementos.
+
+```jsx
+const people = [{
+    id: 0,
+    name: 'Creola Katherine Johnson',
+    profession: 'mathematician',
+  }, {
+    id: 1,
+    name: 'Mario José Molina-Pasquel Henríquez',
+    profession: 'chemist',
+  }, {
+    id: 2,
+    name: 'Mohammad Abdus Salam',
+    profession: 'physicist',
+  }, {
+    name: 'Percy Lavon Julian',
+    profession: 'chemist',  
+  }, {
+    name: 'Subrahmanyan Chandrasekhar',
+    profession: 'astrophysicist',
+  }];
+
+function List(){
+    // FILTRA APENAS OS QUIMICOS ('CHEMISTS') DENTRO DE ARRAU PEOPLE
+    const chemists = people.filter((person)=>{
+       return person.profession === 'chemist'
+    })
+
+    // COM O MAP () PARA CADA PERSON CRIA UMA LI COM A NOME DA PESSO
+    const listItens = chemists.map(person => <li key={person.id}>{person.name}</li>)
+
+    // RETORNA A UL COM OS NOME ARMAZENADOS PELO MAP NA VARIAVEL E OS RENDERIZA NA TELA
+    return <ul>{listItens}</ul>
+}
+
+	export { List }
+```
+
+As listas também podem ser passadas para o componente através de `props:` 
+
+```jsx
+// COMPONENTE RECEBE UMA LISTA ATRAVÉS DE PROPS
+// ESSA LISTA É PERCORRIDA COM O MAP
+// E RETORNAR A UL PARA RENDERIZAÇÃO COM OS ITENS DA LISTA
+function ListWithprops({list}){
+    const itens = list.map(item => <li key={item}>{item}</li>)
+
+    return <ul>{itens}</ul>
+}
+
+export { ListWithprops }
+```
+
+```jsx
+const list = ["1", "2", "3"]
+
+function App() {
+  return (
+    <>
+// COMPONENTE RECEBENDO A LISTA
+      <ListWithprops list={list}/>
+    </>
+  );
+}
+
+export default App;
+```
+
+### `keys:`
+
+Sempre que um `map()` é utilizado no `REACT` para iterar sobre um `array` ou objeto é necessário atribuir um identificador `( KEY )` a esse elemento. Esse identificador ele precisar ser único entre seus irmão.
+
+Ele irá permitir que o `REACT` entenda as mudanças que ocorrem com esses elementos, e não perca a referência evitando `bugs.` 
+
+```jsx
+// NESSE EXEMPLO A KEY É DEFINIDA PELO ID DA PESSOA
+// ESSE ID ESTÁ DEFINIDO DAS PROPRIEDADES DO OBJETO E É UNICA PARA CADA PESSOA
+// MAS TAMBÉM PODERIA VIR DE UM BANDO DE DADOS.
+const listItens = chemists.map(person => <li key={person.id}>{person.name}</li>)
+```
 
