@@ -497,4 +497,70 @@ Ele irá permitir que o `REACT` entenda as mudanças que ocorrem com esses eleme
 // MAS TAMBÉM PODERIA VIR DE UM BANDO DE DADOS.
 const listItens = chemists.map(person => <li key={person.id}>{person.name}</li>)
 ```
+## Dia 7 ⇒ `Refs and Composition`
+
+### `Composition:`
+
+A composição de componentes ( `composition` )  é uma forma de escrever componentes para que ele fiquem de forma mais genérica, ou até mesmo quebrando um componente uma componentes menores, facilitando a manutenção componentes.
+
+No exemplo abaixo, temos um cartão de usuário que irá renderizar o nome e imagens dos usuário de acordo com os `props` recebidas
+
+```jsx
+function ProfileCard({ userName = "Convidado", image }) {
+  return (
+    <div className="card-container">
+      <div className="card-image">
+        <img src={image} alt={userName} />
+      </div>
+      <div className="card-userName">{userName}</div>
+    </div>
+  );
+}
+
+export { ProfileCard };
+```
+
+```jsx
+<>
+      <ProfileCard
+        userName="Wagner Goulart"
+        image={
+          "https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"
+        }
+      />
+
+      <ProfileCard
+        userName="Natasha Goulart"
+        image={
+          "https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"
+        }
+      />
+
+      <ProfileCard
+        userName="Liandra Goulart"
+        image={
+          "https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"
+        }
+      />
+    </>
+```
+
+Porém é note que é possível deixar esse componente ainda mais genérico se ele for quebrando em componentes menores.
+
+```jsx
+function ProfileCard({ image, userName = "Convidado" }) {
+  return (
+    <div className="card-container">
+      <ProfileCardImage image={image} userName={userName} />
+      <ProfileCardUser userName={userName} />
+    </div>
+  );
+}
+```
+
+### `Refs`
+
+Em algumas raras ocasiões será necessário que o componente lembre de seus valores, que seja possível alterar esses valores, sem disparar novas renderizações. Nesses cenários o uso do `useState` pode não ser a mercadoria opção, já que os valores do estado são imutáveis, e atualizações nele disparam novas renderizações, o `React` nos fornece uma saída para o `hook useRef` 
+
+Esse `hook` irá retornar um objeto `javacript` padrão com apenas uma propriedade chamada `current` esse propriedade pode ser lida e alterada, sem que o componente seja renderizado novamente.
 

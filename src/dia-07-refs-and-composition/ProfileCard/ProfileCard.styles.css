@@ -1,0 +1,25 @@
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(19, 18, 18);
+    border-radius: 10px;
+    width: 220px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.card-image {
+    width: 60px; 
+}
+
+.card-image img {
+    width: 100%;
+    border-radius: 100%;
+    border: 1px solid black;
+}
+
+.card-userName{
+    font-weight: bolder;
+    font-size: 16px;
+}
