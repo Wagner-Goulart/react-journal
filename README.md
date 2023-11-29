@@ -564,3 +564,101 @@ Em algumas raras ocasiões será necessário que o componente lembre de seus val
 
 Esse `hook` irá retornar um objeto `javacript` padrão com apenas uma propriedade chamada `current` esse propriedade pode ser lida e alterada, sem que o componente seja renderizado novamente.
 
+## Dia 8 ⇒ `Props vs State`
+
+While props are just a vehicle to pass information down the component tree, state can be changed over time to create interactive user interfaces
+
+novamente renderizado.
+
+### `Props:`
+
+Passam informação de um componente para o outro, como se fossem argumentos de uma função, eles argumentos influenciam no resultado da renderização do componente, porém esses valores são imutáveis:
+
+```jsx
+// COMPONENTE RECEBE COMO ARGUMENTO UMA PROPS
+function Greeting({text}){
+    // ESSE PROPS É UTILIZADA PARA REDENRIZAR UM ELEMENTO HTML NA TELA COM SEU VALOR
+    return <h1>{text}</h1>
+}
+
+export { Greeting }
+```
+
+Essas `props` são passadas para o componente como se fossem atributos `html` customizados
+
+```jsx
+function App() {
+  return (
+    <>
+    {/*COMPONENTE IRÁ RENDERIZAR NA TELA O TEXTO QUE ESTÁ SENDO PASSADO
+COMO VALOR DA PROP */}
+      <Greeting text={'Olá Mundo'} />
+    </>
+  );
+}
+
+export default App;
+```
+
+<aside>
+💡 No `React`, `props` são podem ser passados de componente pai para filho, ou seja, somente de baixo para cima no árvore de componentes
+
+</aside>
+
+Porém como os valores das `props` são imutáveis, não possível gerar interatividade entre interface e usuário, para esse tipo de problema podemos utilizas os `States` 
+
+### `State:`
+
+Podemos pensar como a estado como sendo as variáveis dentro de uma função, ou como a memória do componente.
+
+Enquanto as propriedades são passados de uma componente para o outro e são imutáveis, o estados está dentro do componente, e pode ser alterado.
+
+```jsx
+function Toggle() {
+// DECLARAÇÃO DO ESTADO
+  const [isShow, SetIsShow] = useState(true);
+// FUNCÇÃO QUE IRÁ MANIPULAR O ESTADO
+  const handleToggle = () => {
+    SetIsShow(!isShow);
+  };
+
+  return (
+    <>
+// BOTÃO RECEBE O CLICK A FUNÇÃO DE TOGGLE
+      <button onClick={handleToggle}>Toggle</button>
+// MOSTRO O COMPONENTE GREETIN SE A ISHOW FOR TRUE
+      {isShow && <Greeting text={'Olá Mundo'}/>}
+    </>
+  );
+}
+
+export { Toggle };
+```
+
+No exemplo acima, podemos ver a diferença entrega o propriedade e estados, enquanto o estado será responsável por mostrar ou não o componente `greeting`  de acordo com o interação do usuário no botão. 
+
+O Componente `greeting`  está recebendo uma propriedade com o texto que ele irá renderizar.
+
+Existem também a possibilidade de passarmos um estado como propriedade para um componente, nesse caso ela  propriedade continuara imutável, porém sempre um a estado que ele recebe for atualizado no componente pai, o Pai irá disparar essas alterações para os filhos que receberam a propriedade com o valor atualizado.
+
+```jsx
+function Toggle() {
+  const [isShow, SetIsShow] = useState(true);
+
+  const handleToggle = () => {
+    SetIsShow(!isShow);
+  };
+// No exmeplo abaixo, o React por padrão não rendetiza valores boolenos
+// utilizei o JSON.stringify() para transformo o valor de IsShow em string
+// Dessa maneira, sempre como o do estado alterar, será renderizado na tela
+// TRUE ou FALSE, de acordo com o valor atual do estado.
+  return (
+    <>
+      <button onClick={handleToggle}>Toggle</button>
+      {isShow ? <Greeting text={JSON.stringify(isShow)}/> : <Greeting text={JSON.stringify(isShow)}/> }
+    </>
+  );
+}
+
+export { Toggle };
+```
