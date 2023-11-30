@@ -648,9 +648,9 @@ function Toggle() {
   const handleToggle = () => {
     SetIsShow(!isShow);
   };
-// No exmeplo abaixo, o React por padrão não rendetiza valores boolenos
-// utilizei o JSON.stringify() para transformo o valor de IsShow em string
-// Dessa maneira, sempre como o do estado alterar, será renderizado na tela
+// No exmeplo abaixo, o React por padrão não renderiza valores booleanos
+// utilizei o JSON.stringify() para transformar o valor de IsShow em string
+// Dessa maneira, sempre que o estado alterar, será renderizado na tela
 // TRUE ou FALSE, de acordo com o valor atual do estado.
   return (
     <>
@@ -662,3 +662,60 @@ function Toggle() {
 
 export { Toggle };
 ```
+## Dia 9 ⇒ `Effect LifeCycle`
+
+Componente são montados, atualizados e desmontados esse é o ciclos de vida do componentes. Porém efeitos fazem apenas duas coisas, sincronizam e param de sincronizar algo.
+
+Esse ciclo pode acontecer quantos fazem forem necessárias, e são disparados pelas mudanças de propriedades e estados dos componentes que mudam de acordo com o tempo. E sempre que houver uma mudança o efeito será novamente disparado.
+
+- Para que o efeito ocorra, as `states` e `props` precisam estar sobre a vigia do `useState`, ou seja, dentro do `array` de dependências.
+- Se o `array` de dependências estiver vazio, o efeito ocorrerá apenas uma vez na renderização do componente, e mesmo que os valores das `props` e `states` mudem a sincronização não será mais acionada.
+- Todos os `estados`, `props` e variáveis que são declaradas dentro do corpo do componente precisam estar dentro do `array` de dependências.
+
+```jsx
+import { useEffect } from "react";
+import { useState } from "react";
+
+// FUNÇÃO PARA TRANSFORMAR A PRIMEIRA LETRA EM MAIUSCULA
+const makeFirstLetterUppercase = (string) => {
+    return string[0].toUpperCase() + string.substring(1)
+}
+
+function EffectLifeCycle() {
+    // ESTADO
+  const [selection, setSelection] = useState("casa");
+
+// EVENT HANDLER
+  const handleChange = (e) => {
+    setSelection(e.target.value);
+  };
+
+  // EFEITO
+  useEffect(()=>{
+    console.log(`Valor selecionado é: ${selection}`)
+
+    return () => {
+        console.log(`Valor anterior era: ${selection}`)
+    }
+    // VIGIANDO O ESTADO SELECTION
+    // SEMPRE QUE ELE MUDAR O EFETIO SERÁ DISPARADO
+  }, [selection])
+
+  // RETORNO DO COMPONENTE
+  return (
+    <>
+      <select onChange={handleChange}>
+        <option value="casa">Casa</option>
+        <option value="apartamento">Apartamento</option>
+        <option value="chiqueiro">Chiqueiro</option>
+      </select>
+
+      <div>A opção escolhida foi: {makeFirstLetterUppercase(selection)}</div>
+    </>
+  );
+}
+
+export { EffectLifeCycle };
+```
+
+a

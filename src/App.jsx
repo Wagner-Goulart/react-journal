@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-undef */
-import { Toggle } from "./dia-08-props-vs-state/Toogle.jsx";
+import { EffectLifeCycle } from "./dia-09-lifecycle/EffectLifeCycle.jsx";
 
 function App() {
   return (
     <>
-    <Toggle/>
+    <EffectLifeCycle />
     </>
   );
 }
