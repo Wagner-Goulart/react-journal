@@ -717,5 +717,40 @@ function EffectLifeCycle() {
 
 export { EffectLifeCycle };
 ```
+## Dia 10 ⇒ `Render Props`
 
-a
+`Render Props` são um `patterns` do `React`  nele funções que retornam `JSX` são passadas como `props` para o componente. O componente em si não renderiza nada, quem sem preocupa com o que será renderizado é a função que será passado como `props`.
+
+Nesse abordagem, é possível deixar o componente muita mais genérico sendo possível utiliza-los em diferentes prontos da aplica.
+
+```jsx
+//COMPONENTE CRIADO,
+// IRÁ RECEBER UM PROP RESPONSÁVEL POR RENDERIZAR O JSX
+const Title = ({renderMessage}) => renderMessage()
+
+export { Title }
+```
+
+```jsx
+
+// RECEBE A PROP E JUNTO A FUNÇÃO QUE SERÁ RESPONSÁVEL PELO RENDERIZAÇÃO.
+<Title renderMessage={() => <h1>Olá Sou uma Render Props</h1>} />
+      <Title
+        renderMessage={() =>
+          <div>
+            <h2>Sou um H2 dentro de uma div, dentro a de render props</h2>
+          </div>
+        }
+```
+
+Também é possível que a função seja responsável por renderizar um outro componente, e esse outro componente também ser suas próprias `props`.
+
+```jsx
+// RECEBE A PROP PARA RENDERIZAR OUTRO COMPONENTE.
+// ESSE OUTRA COMPONENTE TAMBÉM TEM SUAS PROPRIAS PROPS
+<Title
+        renderMessage={() => <HelloWorldFromRenderProp message={"Olá !!"} />}
+      />
+```
+
+A

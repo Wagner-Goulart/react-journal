@@ -1,10 +1,17 @@
 /* eslint-disable react/jsx-no-undef */
-import { EffectLifeCycle } from "./dia-09-lifecycle/EffectLifeCycle.jsx";
+
+import {
+  HelloWorldFromRenderProp,
+  Title,
+} from "./dia-10-render-props/RenderProps";
 
 function App() {
   return (
     <>
-    <EffectLifeCycle />
+      <Title renderMessage={() => <h1>Olá Sou uma Render Props</h1>} />
+      <Title
+        renderMessage={() => <HelloWorldFromRenderProp message={"Olá !!"} />}
+      />
     </>
   );
 }
