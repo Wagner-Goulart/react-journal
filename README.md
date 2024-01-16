@@ -752,5 +752,59 @@ Também é possível que a função seja responsável por renderizar um outro co
         renderMessage={() => <HelloWorldFromRenderProp message={"Olá !!"} />}
       />
 ```
+## Dia 11 ⇒ `High Order Components`
 
-A
+`High Order components` são uma técnica utilizada no `REACT` , são funções que recebe um componente e retorna um novo componente.
+
+São uma forma elegante e que permitem a reutilização do código.
+
+No exemplo abaixo, criamos um componente `withLoader` que será nossa `high order component`. Ele recebe com componente como parâmetro;
+
+Dentro do primeiro `return` é realizado lógica para alterar o estado `loading` ;
+
+No segundo `return` é feita a checagem para renderizar ou não o componente na tela;
+
+Se o `loading = true` serão renderizado na tela o `<p>Loading…</p>`
+
+Se `loading = false` então será renderizados na tela o componente que estão sendo passado como parâmetro.
+
+O componente que será renderizado pelo `High Order Component,` sempre recebe estende todas as propriedades com o `{…props}`
+
+```jsx
+import { useState } from "react";
+
+const withLoader = (WrappedComponent) => {
+  return (props) => {
+    const [loading, setLoading] = useState(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return (
+        <div>
+            {loading ? <p>Loading...</p>: <WrappedComponent {...props}/>}
+        </div>
+    )
+
+  };
+};
+
+export { withLoader }
+```
+
+```jsx
+// CRIAMOS UM COMPONENTE QUE IRA RECEBER O HIGH ORDER COMPONENT.
+// E PASSAMOS PARA O HIGH ORDER COMPONTE O COMOPONENTE QUE QUEREMOS 
+const UserWithLoader = withLoader(User)
+
+function App() {
+  return (
+    <>
+      <UserWithLoader/>
+    </>
+  );
+}
+
+export default App;
+```
