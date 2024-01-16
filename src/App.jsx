@@ -1,17 +1,14 @@
 /* eslint-disable react/jsx-no-undef */
+import { withLoader } from "./dia-11-high-order-components/HighOrderComponents";
+import { User } from "./dia-11-high-order-components/User";
 
-import {
-  HelloWorldFromRenderProp,
-  Title,
-} from "./dia-10-render-props/RenderProps";
+
+const UserWithLoader = withLoader(User)
 
 function App() {
   return (
     <>
-      <Title renderMessage={() => <h1>Olá Sou uma Render Props</h1>} />
-      <Title
-        renderMessage={() => <HelloWorldFromRenderProp message={"Olá !!"} />}
-      />
+      <UserWithLoader/>
     </>
   );
 }
