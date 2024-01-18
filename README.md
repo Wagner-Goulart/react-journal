@@ -808,3 +808,37 @@ function App() {
 
 export default App;
 ```
+
+## Dias 12 ⇒ `Custom Hooks`
+
+Componentes que não retornam JSX. Retornam variáveis do Javascript.
+
+Isolam a lógica e regras de negócio aumento a reutilização do código
+
+Por convenção todo o `custom Hook` deve ter o prefixo `useNomeDoHook`, e devem estar separados no projeto dentro de uma pasta chamada `hooks`
+
+```tsx
+import { useState } from "react";
+
+const useCounter = () =>{
+    const [number, setNumber] = useState(0);
+
+    const addNumber = ()=> {
+      setNumber((prevNumber)=> prevNumber + 1)
+    }
+  
+    const subtractNumber = ()=> {
+      setNumber((prevNumber)=> prevNumber -1)
+    }
+
+    return {
+        number,
+        addNumber,
+        subtractNumber
+    }
+}
+
+export { useCounter }
+```
+
+a

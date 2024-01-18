@@ -1,16 +1,9 @@
-import { useState } from "react";
 import './Contador.styles.css'
+import { useCounter } from "../dia-12-custom-hooks/useCounter";
 
 function Contador() {
-  const [number, setNumber] = useState(0);
 
-  const addNumber = ()=> {
-    setNumber((prevNumber)=> prevNumber + 1)
-  }
-
-  const subtractNumber = ()=> {
-    setNumber((prevNumber)=> prevNumber -1)
-  }
+  const { number, subtractNumber, addNumber, resetNumber } = useCounter()
 
   return (
     <>
@@ -19,6 +12,7 @@ function Contador() {
         <div className="button-container">
           <button className="button" onClick={subtractNumber}>-</button>
           <button className="button" onClick={addNumber}>+</button>
+          <button className="button" onClick={resetNumber}>reset</button>
         </div>
       </div>
     </>
